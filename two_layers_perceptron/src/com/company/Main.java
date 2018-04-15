@@ -18,7 +18,7 @@ class Perceptron {
     double[][] wEH;
     double[] wHO;
     double[][] patterns = {
-            {0, 0}, {1, 0}, {0, 1}, {1, 1}
+            {0, 0}, {5, 0}, {0, 5}, {5, 5}
     };
     double[] answers = {0, 1, 1, 0};
 
@@ -56,14 +56,14 @@ class Perceptron {
             for (int j = 0; j < enters.length; j++) {
                 hidden[i] += enters[j] * wEH[j][i];
             }
-            if (hidden[i] > 0.5) hidden[i] = 1;
+            if (hidden[i] > 2.5) hidden[i] = 1;
             else hidden[i] = 0;
         }
         outer = 0;
         for (int i = 0; i < hidden.length; i++) {
             outer += hidden[i] * wHO[i];
         }
-        if (outer > 0.5) outer = 1;
+        if (outer > 2.5) outer = 1;
         else outer = 0;
     }
 
