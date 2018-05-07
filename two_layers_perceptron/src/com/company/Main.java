@@ -1,5 +1,6 @@
 package com.company;
 
+import java.io.*;
 public class Main {
     public static void main(String[] args) {
 
@@ -17,10 +18,13 @@ class Perceptron {
     double outer;
     double[][] wEH;
     double[] wHO;
-    double[][] patterns = {
-            {0, 0}, {5, 0}, {0, 5}, {5, 5}
-    };
-    double[] answers = {0, 1, 1, 0};
+    double[][] patterns = readFile();
+            //{
+          //  {0, 0}, {5, 0}, {0, 5}, {5, 5}
+   // };
+    double[] answers = readResult();
+                    //{ 1, 1, 0,0};
+
 
     Perceptron() {
         enters = new double[patterns[0].length];
@@ -38,6 +42,55 @@ class Perceptron {
             System.out.println(outer);
         }
 
+    }
+
+
+    public double [] readResult(){
+        double output [] = new double[4];
+        String fileName = "Книга1.csv";
+        File file= new File(fileName);
+
+        try (BufferedReader br =
+                     new BufferedReader(new InputStreamReader(new FileInputStream(file), "UTF-8"))) {
+            String line;
+            int i = 0;
+            br.readLine();
+            while ((line = br.readLine()) != null) {
+                String[] elements = line.split(";");
+                output[i] = Double.parseDouble(elements[2]);
+                //r[i] = Double.parseDouble(elements[2]);
+                i++;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return output;
+    }
+
+
+
+
+    public double [][] readFile(){
+        double pattern [][] = new double[4][2];
+        String fileName = "Книга1.csv";
+        File file= new File(fileName);
+
+        try (BufferedReader br =
+                new BufferedReader(new InputStreamReader(new FileInputStream(file), "UTF-8"))) {
+            String line;
+            int i = 0;
+            br.readLine();
+            while ((line = br.readLine()) != null) {
+                String[] elements = line.split(";");
+                pattern[i][0] = Double.parseDouble(elements[0]);
+                pattern[i][1] = Double.parseDouble(elements[1]);
+                //r[i] = Double.parseDouble(elements[2]);
+                i++;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    return pattern;
     }
 
     public void initWeights() {
